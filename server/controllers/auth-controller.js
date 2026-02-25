@@ -22,18 +22,18 @@ const Register = async (req, res) => {
     const salt = 10;
     const hash_password = await bcrypt.hash(password, salt);
 
-    const User = await userModel.create({
+    const user = await userModel.create({
       fullName,
       email:normalizeEmail,
       password: hash_password,
     });
     const userData = {
-      fullName: User.fullName,
-      email: User.email,
+      fullName: user.fullName,
+      email: user.email,
     };
     // generate jwt token
     const token = jwt.sign(
-      { id: User._id, email: User.email },
+      { id: user._id, email: user.email },
       process.env.JWT_SECRET,
       { expiresIn: "1d" },
     );
