@@ -104,4 +104,15 @@ const Login = async (req, res) => {
   }
 };
 
-module.exports = { Register, Login };
+// logout controller 
+const Logout = async(req,res)=>{
+  try {
+    res.clearCookie("token")
+    return res.status(StatusCode.OK).json({message:"User logged out succesfully"})
+  } catch (error) {
+    return res
+      .status(StatusCode.INTERNAL_SERVER_ERROR)
+      .json({ message: "Internal server error", error: error.message });
+  }
+}
+module.exports = { Register, Login, Logout };
